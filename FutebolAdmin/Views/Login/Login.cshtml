@@ -1,0 +1,174 @@
+﻿@model FutebolAdmin.Models.Usuario
+@{
+    Layout = null;
+    var imagem = (string)TempData["Imagem"];
+}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript" src="@Url.Content("~/js/jquery.unobtrusive-ajax.js")"></script>
+<script src="@Url.Content("~/js/jquery.blockUI.js")" type="text/javascript"></script>
+<script>
+    $(document)
+        .ajaxStart($.blockUI)
+        .ajaxStop($.unblockUI);
+
+    function onSuccess(result) {
+        if (result.result == "Success") {
+            alert(result.message)
+            window.location = result.url;
+        }
+        else {
+            alert(result.message);
+        }
+    }
+</script>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link href="@Url.Content("~/content/css/Site.css")" rel="stylesheet" type="text/css" />
+</head>
+<body style="overflow: hidden; margin: 0;">
+    <form method="post" action="" style="margin: 0;">
+        <input type="hidden" name="numero" id="numero" value="0" />
+        <!--ÁREA DA ESQUERDA-->
+        <div class="leftContainer" id="loginDiv" style="background-color: rgba(24, 26, 27, 0.77);
+        background-position: initial; background-repeat: initial; bottom: initial; left: 36%;
+        position: fixed; top: 8%; width: 366px; font-family: Arial; height: 470px;">
+            <div class="logoApp">
+                <img src="@Url.Content("~/content/images/logo.png")" width="150px" />
+            </div>
+            <div class="logBox" style="margin: 65px 53px 0; width: 256px;">
+                <div class="logInput">
+                    <div class="label">
+                        Usuário
+                    </div>
+                    @Html.TextBoxFor(model => model.Login, new { @required = "required", @id = "login", @title = "Informe o login do usuário", @style = "background-color: rgba(155, 186, 187, 0.63);" })
+                </div>
+                <div class="logInput">
+                    <div class="label">
+                        Senha
+                    </div>
+                    @Html.PasswordFor(model => model.Senha, new { @required = "required", @id = "pass", @title = "Informe a senha", @style = "background-color: rgba(155, 186, 187, 0.63);" })
+                </div>
+                <<div class="label" style="color:red;">
+                    @ViewBag.UsuarioOuSenhaInvalidos
+                </div>
+                <div class="logInput">
+                    <input type="submit" name="btn_save" value="Entrar" id="btn_save" class="btnEntrar" />
+                </div>
+            </div>
+        </div>
+        <!--ÁREA DA DIREITA-->
+        <div class="rightContainer" style="background-color: #252E35; bottom: initial; left: initial;
+        position: initial; right: initial; top: initial; overflow: hidden;">
+            <img id="bg" class="imagem" style="width: 100%" src="@imagem" alt="" />s
+        </div>
+
+    </form>
+</body>
+</html>
+<style>
+    .leftContainer {
+        background-color: #252E35;
+        background-position: right center;
+        background-repeat: repeat-y;
+        bottom: 0;
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 362px;
+        font-family: Arial;
+    }
+
+        .leftContainer .logoApp {
+            margin-top: 50px;
+            margin-bottom: -50px;
+            text-align: center;
+        }
+
+        .leftContainer .logBox {
+            margin: 130px 53px 0;
+            width: 256px;
+        }
+
+            .leftContainer .logBox .logInput {
+                margin-top: 20px;
+            }
+
+                .leftContainer .logBox .logInput .label {
+                    color: #DFDFDF;
+                    font-size: 15px;
+                    margin-bottom: 5px;
+                }
+
+                .leftContainer .logBox .logInput input[type="text"], .leftContainer .logBox .logInput input[type="password"] {
+                    background-color: transparent;
+                    border: 1px solid #38454F;
+                    height: 27px;
+                    width: 253px;
+                    color: #DFDFDF;
+                    text-indent: 10px;
+                }
+
+    .btnEntrar {
+        margin-top: 20px;
+        float: right;
+        background-color: darkcyan;
+    }
+
+    .leftContainer .logBox .logInput .btnEntrar {
+        background-image: url("../images/backgrounds/btn-pattern.jpg");
+        border: 0 none;
+        border-radius: 2px 2px 2px 2px;
+        color: #FFFFFF;
+        font-size: 12px;
+        font-weight: bold;
+        height: 29px;
+        text-transform: uppercase;
+        width: 132px;
+        cursor: pointer;
+    }
+
+        .leftContainer .logBox .logInput .btnEntrar:hover {
+            background-image: url("../images/backgrounds/btn-pattern-hover.jpg");
+            background-color: white;
+            color: black;
+        }
+
+    .leftContainer .logBox .logInput .forget a {
+        color: #DFDFDF;
+        font-size: 11px;
+        text-decoration: none;
+    }
+
+    .leftContainer .logoPmwebResponsys {
+        bottom: 35px;
+        left: 53px;
+        position: absolute;
+        top: 91%;
+    }
+
+    .rightContainer {
+        background-color: #252E35;
+        bottom: 0;
+        left: 362px; /*position: fixed;*/
+        right: 0;
+        top: 0;
+        overflow: hidden;
+    }
+
+        .rightContainer .imagem {
+            min-width: 100%;
+            min-height: 100%;
+        }
+
+    #bg {
+        width: 100%;
+        height: 100%;
+    }
+
+    .formRight input[type=password] {
+        min-width: 25%;
+    }
+</style>
